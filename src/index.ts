@@ -1,4 +1,5 @@
 import "./loadEnvironment.js";
+import "./database/index.js";
 import express from "express";
 
 const port = process.env.PORT;
