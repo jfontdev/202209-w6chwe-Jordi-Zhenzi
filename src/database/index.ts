@@ -8,7 +8,7 @@ const mongoConnection = process.env.MONGO_URL;
 mongoose
   .connect(mongoConnection)
   .then(() => {
-    debug("Conexion correcta a la BBDD");
+    debug("Connected correctly to the database.");
   })
   .catch((error) => {
     debug(error);
