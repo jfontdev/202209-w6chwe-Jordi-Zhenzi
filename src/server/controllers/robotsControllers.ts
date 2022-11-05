@@ -5,11 +5,16 @@ import chalk from "chalk";
 
 const debug = debugCreator("robots:server:controllers:robotsController");
 
-const getRobots = async (req: Request, res: Response) => {
+export const getRobots = async (req: Request, res: Response) => {
   const robotList = await Robot.find();
 
   res.status(200).json({ robots: robotList });
   debug(chalk("The robot list have been succesfully sended"));
 };
 
-export default getRobots;
+export const getRobotById = async (req: Request, res: Response) => {
+  const { idRobot } = req.params;
+
+  const robotList = await Robot.findById(idRobot);
+  res.status(200).json({ robots: robotList });
+};

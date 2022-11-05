@@ -26,6 +26,6 @@ const robotSchema = new mongoose.Schema({
 });
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const Robot = mongoose.model("Robot", robotSchema);
+const Robot = mongoose.model("Robot", robotSchema, "robots");
 
 export default Robot;
