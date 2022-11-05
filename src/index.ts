@@ -1,19 +1,12 @@
+/* eslint-disable no-implicit-coercion */
 import "./loadEnvironment.js";
-import "./database/index.js";
-import robotsRouter from "./server/routers/robotsRouter.js";
-import express from "express";
-import debugCreator from "debug";
-
-const debug = debugCreator("robots:root");
+import databaseConnection from "./database/databaseConnection.js";
+import serverStart from "./server/serverStart.js";
 
 const port = process.env.PORT;
+const mongoUrl = process.env.MONGO_URL;
 
-const app = express();
-
-app.use(express.json());
-
-app.use("/robots", robotsRouter);
-
-app.listen(port, () => {
-  debug(`Server starting: http://localhost:${port}`);
-});
+(async () => {
+  await databaseConnection(mongoUrl);
+  await serverStart(+port);
+})();
