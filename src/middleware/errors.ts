@@ -20,6 +20,6 @@ export const generalError = (
 };
 
 export const unknownEndpoint = (req: Request, res: Response) => {
-  debug("Unknow endpoint");
+  debug("Unknown endpoint");
   res.status(404).json({ message: "Unknown endpoint" });
 };

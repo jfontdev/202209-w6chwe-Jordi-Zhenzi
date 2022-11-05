@@ -14,7 +14,11 @@ export const getRobots = async (req: Request, res: Response) => {
 
 export const getRobotById = async (req: Request, res: Response) => {
   const { idRobot } = req.params;
-
-  const robotList = await Robot.findById(idRobot);
-  res.status(200).json({ robots: robotList });
+  try {
+    const robotList = await Robot.findById(idRobot);
+    res.status(200).json({ robots: robotList });
+  } catch {
+    debug("That robot was recycled and does not exist anymore.");
+    res.status(404).json("Robot not found by that ID.");
+  }
 };
