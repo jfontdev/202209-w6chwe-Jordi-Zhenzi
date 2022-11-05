@@ -3,6 +3,7 @@ import "./loadEnvironment.js";
 import databaseConnection from "./database/databaseConnection.js";
 import serverStart from "./server/serverStart.js";
 
+
 const port = process.env.PORT;
 const mongoUrl = process.env.MONGO_URL;
 
@@ -10,3 +11,4 @@ const mongoUrl = process.env.MONGO_URL;
   await databaseConnection(mongoUrl);
   await serverStart(+port);
 })();
+
