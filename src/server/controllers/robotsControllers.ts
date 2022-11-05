@@ -14,15 +14,31 @@ export const getRobots = async (req: Request, res: Response) => {
   debug(chalk("The robot list have been succesfully sended"));
 };
 
-export const getRobotById = async (req: Request, res: Response) => {
+export const getRobotById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { idRobot } = req.params;
-
   try {
-    const robotList = await Robot.findById(idRobot);
-    res.status(200).json({ robots: robotList });
-  } catch {
-    debug("That robot was recycled and does not exist anymore.");
-    res.status(404).json("Robot not found by that ID.");
+    const robot = await Robot.findById(idRobot);
+
+    if (!robot) {
+      res.status(404).json({
+        message: "That robot was recycled and does not exist anymore.",
+      });
+      return;
+    }
+
+    debug({ robots: robot });
+    res.status(200).json({ robots: robot });
+  } catch (error: unknown) {
+    const idError = new CustomError(
+      (error as Error).message,
+      500,
+      "Robot not found by that ID."
+    );
+    next(idError);
   }
 };
 
