@@ -1,5 +1,6 @@
 import "./loadEnvironment.js";
 import "./database/index.js";
+import robotsRouter from "./server/routers/robotsRouter.js";
 import express from "express";
 import debugCreator from "debug";
 
@@ -11,9 +12,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use((req, res) => {
-  res.status(200).json({ message: "Hola mundo" });
-});
+app.use("/robots", robotsRouter);
 
 app.listen(port, () => {
   debug(`Server starting: http://localhost:${port}`);
