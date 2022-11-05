@@ -169,5 +169,20 @@ describe("Given a getRobotById controller", () => {
 
       expect(res.json).toHaveBeenCalledWith(expectedError);
     });
+
+    test("Then it should return a custom error", async () => {
+      const req: Partial<Request> = { params: { idRobot: "1" } };
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+      const next = jest.fn();
+
+      Robot.findById = jest.fn().mockRejectedValue(new Error(""));
+
+      await getRobotById(req as Request, res as Response, next as NextFunction);
+
+      expect(next).toHaveBeenCalled();
+    });
   });
 });
