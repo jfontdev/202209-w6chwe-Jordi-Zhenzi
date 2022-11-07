@@ -13,6 +13,8 @@ const res: Partial<Response> = {
   json: jest.fn(),
 };
 
+process.env.TOKEN = "f4cd59105097f35b2b61146a74cf0abd64f2bd4d";
+
 describe("Given a Robots controller", () => {
   describe("When it receives a response", () => {
     test("Then it should respond with a status code 200", async () => {
@@ -51,7 +53,12 @@ describe("Given a Robots controller", () => {
         idRobot: "1",
       };
 
-      const req: Partial<Request> = { params: { idRobot: "1" } };
+      const req: Partial<Request> = {
+        params: {
+          idRobot: "1",
+        },
+        query: { token: "f4cd59105097f35b2b61146a74cf0abd64f2bd4d" },
+      };
       const res: Partial<Response> = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn().mockReturnThis(),
@@ -70,6 +77,7 @@ describe("Given a Robots controller", () => {
 
         const req: Partial<Request> = {
           params: { idRobot: "63656521971d796cead92382" },
+          query: { token: "f4cd59105097f35b2b61146a74cf0abd64f2bd4d" },
         };
         const res: Partial<Response> = {
           status: jest.fn().mockReturnThis(),
@@ -86,7 +94,10 @@ describe("Given a Robots controller", () => {
 
     describe("And the request it's rejected", () => {
       test("Then it should return a custom error", async () => {
-        const req: Partial<Request> = { params: { idRobot: "1" } };
+        const req: Partial<Request> = {
+          params: { idRobot: "1" },
+          query: { token: "f4cd59105097f35b2b61146a74cf0abd64f2bd4d" },
+        };
         const res: Partial<Response> = {
           status: jest.fn().mockReturnThis(),
           json: jest.fn(),
