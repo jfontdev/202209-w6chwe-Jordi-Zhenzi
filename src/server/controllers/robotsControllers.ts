@@ -48,8 +48,14 @@ export const deleteRobotById = async (
   next: NextFunction
 ) => {
   const { idRobot } = req.params;
-
+  const { token } = req.query;
+  const tokenEnvironment = `${process.env.TOKEN}`;
   try {
+    if (token !== tokenEnvironment) {
+      res.status(403).json("Invalid Token");
+      return;
+    }
+
     const deletedRobot = await Robot.findByIdAndDelete(idRobot);
     if (!deletedRobot) {
       res.status(404).json("Robot not found by that ID.");
